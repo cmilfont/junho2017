@@ -1,34 +1,31 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import uuid from 'uuid';
+import PropTypes from 'prop-types';
 
 class Store extends React.Component {
 
   static childContextTypes = {
-    list: PropTypes.array,
+    state: PropTypes.object,
     dispatch: PropTypes.func,
   }
 
   state = {
-    config: {},
-    list: [
-      {
-        uid: uuid(),
-        premium: true,
-        name: 'Heineken',
-        brewery: 'Heineken',
-      }
-    ],
+    list: [],
+    user: {},
   }
 
   getChildContext() {
     return {
-      list: this.state.list,
+      state: this.state,
       dispatch: this.dispatch,
     };
   }
 
   dispatch = action => {
+
+    if (action.type === 'load') {
+      this.load(action.payload);
+    }
 
     if (action.type === 'add') {
       this.add();
@@ -42,6 +39,13 @@ class Store extends React.Component {
       this.edit(action.payload);
     }
 
+  }
+
+  load = (list) => {
+    this.setState({
+      ...this.state,
+      list,
+    });
   }
 
   remove = (uid) => {

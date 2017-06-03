@@ -1,11 +1,17 @@
 import React from 'react';
 import connect from 'milflux/connect';
 
-class Toolbar extends React.Component {
+const Toolbar = ({ count, user: { uid } }) => (
+  <div className="">
+    {
+      uid ? `Count: ${count}`: ''
+    }
+  </div>
+);
 
-  render() {
-    const { list } = this.props;
-    const count = list.reduce(
+export default connect(Toolbar, state => {
+  return {
+    count: state.list.reduce(
       (count, item) => {
         if (item.premium) {
           return count + 1;
@@ -13,13 +19,7 @@ class Toolbar extends React.Component {
         return count;
       },
       0
-    );
-    return (
-      <div>
-        Count: {count}
-      </div>
-    );
+    ),
+    user: state.user,
   }
-}
-
-export default connect(Toolbar);
+});

@@ -4,15 +4,17 @@ import PropTypes from 'prop-types';
 class Wrapper extends Component {
 
   static contextTypes = {
-    list: PropTypes.array,
+    state: PropTypes.object,
     dispatch: PropTypes.func,
   }
 
   render() {
-    const { list, dispatch } = this.context;
-    const { component, defaultProps } = this.props;
+    const { state, dispatch } = this.context;
+    const { component, defaultProps, mapping } = this.props;
+
+    const mapped = (mapping) ? mapping(state) : {};
     const props = {
-      list,
+      ...mapped,
       dispatch,
       ...defaultProps,
     };
@@ -23,9 +25,13 @@ class Wrapper extends Component {
   }
 }
 
-const connect = (component) => {
+const connect = (component, mapping) => {
   return (props) => (
-    <Wrapper defaultProps={props} component={component} />
+    <Wrapper
+      mapping={mapping}
+      defaultProps={props}
+      component={component}
+    />
   );
 }
 

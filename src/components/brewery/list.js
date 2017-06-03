@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import uuid from 'uuid';
 import connect from 'milflux/connect';
 import Beer from 'components/brewery/beer';
 
@@ -8,6 +9,18 @@ class List extends Component {
     this.props.dispatch({
       type: 'add'
     });
+  }
+
+  componentDidMount() {
+
+    const ref = window.firebase.database().ref(`/breweries`);
+    ref.on('value', data => {
+      this.props.dispatch({
+        type: 'load',
+        payload: data.val(),
+      });
+    });
+
   }
 
   render() {
@@ -28,4 +41,8 @@ class List extends Component {
   }
 }
 
-export default connect(List);
+export default connect(List, state => {
+  return {
+    list: state.list,
+  }
+});
