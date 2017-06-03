@@ -1,8 +1,17 @@
-import React, { PropTypes } from 'react'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
-class Beer extends React.Component {
+class Beer extends Component {
+
+  static contextTypes = {
+    edit: PropTypes.func,
+    remove: PropTypes.func,
+  }
+
   render () {
-    const { uid, name, brewery, edit } = this.props;
+    const { edit, remove } = this.context;
+    const { uid, name, brewery } = this.props;
+    const onClick = () => remove(uid);
     return (
       <div className="beer">
         <div>
@@ -24,6 +33,9 @@ class Beer extends React.Component {
             id={`bre-${uid}`}
             name={uid}
           />
+        </div>
+        <div>
+          <button onClick={onClick}>Remove</button>
         </div>
       </div>
     )
