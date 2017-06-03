@@ -5,12 +5,17 @@ class Wrapper extends Component {
 
   static contextTypes = {
     list: PropTypes.array,
+    dispatch: PropTypes.func,
   }
 
   render() {
-    const { list } = this.context;
-    const { component } = this.props;
-    const props = { list };
+    const { list, dispatch } = this.context;
+    const { component, defaultProps } = this.props;
+    const props = {
+      list,
+      dispatch,
+      ...defaultProps,
+    };
     return React.createElement(
       component,
       props
@@ -19,8 +24,8 @@ class Wrapper extends Component {
 }
 
 const connect = (component) => {
-  return () => (
-    <Wrapper component={component} />
+  return (props) => (
+    <Wrapper defaultProps={props} component={component} />
   );
 }
 

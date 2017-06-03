@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import connect from 'milflux/connect';
 import Beer from 'components/brewery/beer';
 
 class List extends Component {
 
-  static contextTypes = {
-    add: PropTypes.func,
+  add = () => {
+    this.props.dispatch({
+      type: 'add'
+    });
   }
 
   render() {
-    const { list } = this.props;
-    const { add } = this.context;
+    const { list, dispatch } = this.props;
     const beers = list.map(beer => (
       <Beer
         key={beer.uid}
@@ -22,7 +22,7 @@ class List extends Component {
     return (
       <div>
         <div className="list">{beers}</div>
-        <button onClick={add}>Add</button>
+        <button onClick={this.add}>Add</button>
       </div>
     );
   }

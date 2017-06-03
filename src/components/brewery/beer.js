@@ -1,24 +1,34 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import connect from 'milflux/connect';
 
 class Beer extends Component {
 
-  static contextTypes = {
-    edit: PropTypes.func,
-    remove: PropTypes.func,
+  remove = () => {
+    const { uid, dispatch } = this.props;
+    dispatch({
+      type: 'remove',
+      payload: uid,
+    })
+  }
+
+  edit = (event) => {
+    const { uid, dispatch } = this.props;
+    dispatch({
+      type: 'edit',
+      payload: event,
+    });
   }
 
   render () {
-    const { edit, remove } = this.context;
     const { uid, name, brewery } = this.props;
-    const onClick = () => remove(uid);
+
     return (
       <div className="beer">
         <div>
           <label htmlFor={`name-${uid}`}>Name</label>
           <input
             data-name="name"
-            onChange={edit}
+            onChange={this.edit}
             value={name}
             id={`name-${uid}`}
             name={uid}
@@ -28,18 +38,18 @@ class Beer extends Component {
           <label htmlFor={`bre-${uid}`}>Brewery</label>
           <input
             data-name="brewery"
-            onChange={edit}
+            onChange={this.edit}
             value={brewery}
             id={`bre-${uid}`}
             name={uid}
           />
         </div>
         <div>
-          <button onClick={onClick}>Remove</button>
+          <button onClick={this.remove}>Remove</button>
         </div>
       </div>
     )
   }
 }
 
-export default Beer;
+export default connect(Beer);

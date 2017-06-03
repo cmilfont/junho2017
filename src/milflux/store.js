@@ -6,9 +6,7 @@ class Store extends React.Component {
 
   static childContextTypes = {
     list: PropTypes.array,
-    edit: PropTypes.func,
-    add: PropTypes.func,
-    remove: PropTypes.func,
+    dispatch: PropTypes.func,
   }
 
   state = {
@@ -26,10 +24,24 @@ class Store extends React.Component {
   getChildContext() {
     return {
       list: this.state.list,
-      edit: this.edit,
-      add: this.add,
-      remove: this.remove,
+      dispatch: this.dispatch,
     };
+  }
+
+  dispatch = action => {
+
+    if (action.type === 'add') {
+      this.add();
+    }
+
+    if (action.type === 'remove') {
+      this.remove(action.payload);
+    }
+
+    if (action.type === 'edit') {
+      this.edit(action.payload);
+    }
+
   }
 
   remove = (uid) => {
