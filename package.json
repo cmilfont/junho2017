@@ -1,0 +1,19 @@
+{
+  "name": "junho2017",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^15.5.4",
+    "react-dom": "^15.5.4",
+    "uuid": "^3.0.1"
+  },
+  "devDependencies": {
+    "react-scripts": "1.0.7"
+  },
+  "scripts": {
+    "start": "NODE_PATH=src react-scripts start",
+    "build": "NODE_PATH=src react-scripts build",
+    "test": "NODE_PATH=src react-scripts test --env=jsdom",
+    "eject": "NODE_PATH=src react-scripts eject"
+  }
+}
