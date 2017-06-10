@@ -1,6 +1,7 @@
 import React from 'react';
 import uuid from 'uuid';
 import PropTypes from 'prop-types';
+import firebase from 'firebase';
 
 class Store extends React.Component {
 
@@ -39,7 +40,49 @@ class Store extends React.Component {
       this.edit(action.payload);
     }
 
+    if (action.type === 'login') {
+      this.login();
+    }
+
   }
+
+  componentWillMount() {
+    const config = {
+      apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
+      authDomain: "feedback-140018.firebaseapp.com",
+      databaseURL: "https://feedback-140018.firebaseio.com",
+      projectId: "feedback-140018",
+      storageBucket: "feedback-140018.appspot.com",
+      messagingSenderId: "71457068040"
+    };
+    firebase.initializeApp(config);
+    window.firebase = firebase;
+  }
+
+  login = () => {
+    const authProvider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth()
+            .signInWithPopup(authProvider)
+            .then((payload) => {
+              this.addFirebaseUser(payload.user);
+            });
+  }
+
+  addFirebaseUser = user => {
+   const { displayName, photoURL, email, uid } = user;
+   const ref = firebase.database().ref(`/users/${uid}`);
+   ref.update({
+     displayName,
+     photoURL,
+     email,
+     list: this.state.list,
+   }).then(() => {
+     this.setState({
+       ...this.state,
+        user,
+     })
+   });
+ };
 
   load = (list) => {
     this.setState({
