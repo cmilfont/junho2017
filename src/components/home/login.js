@@ -16,8 +16,4 @@ class Login extends Component {
   }
 }
 
-export default connect(state => {
-  return {
-    user: state.user,
-  }
-})(Login);
+export default connect(null)(Login);

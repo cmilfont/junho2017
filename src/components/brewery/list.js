@@ -7,20 +7,12 @@ class List extends Component {
 
   add = () => {
     this.props.dispatch({
-      type: 'add'
+      type: 'BREWERY_LIST_ADD'
     });
   }
 
   componentDidMount() {
-
-    const ref = window.firebase.database().ref(`/breweries`);
-    ref.on('value', data => {
-      this.props.dispatch({
-        type: 'load',
-        payload: data.val(),
-      });
-    });
-
+    this.props.dispatch({ type: 'BREWERY_LIST_REQUEST' })
   }
 
   render() {
@@ -28,8 +20,8 @@ class List extends Component {
     const beers = list.map(beer => (
       <Beer
         dispatch={dispatch}
-        key={beer.uid}
-        {...beer}
+        key={beer.get('uid')}
+        beer={beer}
       />
     ));
 

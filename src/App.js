@@ -6,34 +6,15 @@ import uuid from 'uuid';
 import './App.css';
 
 import middleware from 'api/middlewares/middleware.js';
-
+import reducers from 'api/reducers';
 window.uuid = uuid;
-
-function listReducer(list = [], action) {
-  if (action.type === 'changed') {
-    return action.payload;
-  }
-  return list;
-}
-
-function userReducer(user = {}, action) {
-  if (action.type === 'logged') {
-    return action.payload;
-  }
-  return user;
-}
 
 class App extends Component {
 
   render() {
-
     const middlewares = [middleware];
-
     const store = createStore(
-      combineReducers({
-        user: userReducer,
-        list: listReducer,
-      }),
+      combineReducers(reducers),
       applyMiddleware(...middlewares)
     );
 

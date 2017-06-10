@@ -1,6 +1,8 @@
 import React from 'react';
 
-const Beer = ({ uid, name, brewery, dispatch }) => {
+const Beer = ({ beer, dispatch }) => {
+
+  const { uid, name, brewery } = beer.toJS();
 
   const remove = () => {
     dispatch({
@@ -9,10 +11,15 @@ const Beer = ({ uid, name, brewery, dispatch }) => {
     })
   }
 
-  const edit = (event) => {
+  const edit = ({ target }) => {
+    const key = target.dataset['key'];
+    const value = target.value;
     dispatch({
-      type: 'edit',
-      payload: event,
+      type: 'BREWERY_LIST_EDIT',
+      payload: {
+        uid,
+        [key]: value
+      },
     });
   }
 
@@ -21,7 +28,7 @@ const Beer = ({ uid, name, brewery, dispatch }) => {
       <div>
         <label htmlFor={`name-${uid}`}>Name</label>
         <input
-          data-name="name"
+          data-key="name"
           onChange={edit}
           value={name}
           id={`name-${uid}`}
@@ -31,7 +38,7 @@ const Beer = ({ uid, name, brewery, dispatch }) => {
       <div>
         <label htmlFor={`bre-${uid}`}>Brewery</label>
         <input
-          data-name="brewery"
+          data-key="brewery"
           onChange={edit}
           value={brewery}
           id={`bre-${uid}`}

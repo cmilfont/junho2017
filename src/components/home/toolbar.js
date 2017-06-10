@@ -11,15 +11,16 @@ const Toolbar = ({ count, user: { uid } }) => (
 
 export default connect(state => {
   return {
-    count: state.list.reduce(
-      (count, item) => {
-        if (item.premium) {
-          return count + 1;
-        }
-        return count;
-      },
-      0
-    ),
+    count: 0,
+    //  state.list.reduce(
+    //   (count, item) => {
+    //     if (item.premium) {
+    //       return count + 1;
+    //     }
+    //     return count;
+    //   },
+    //   0
+    // ),
     user: state.user,
   }
 })(Toolbar);
