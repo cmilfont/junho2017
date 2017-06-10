@@ -1,25 +1,20 @@
 import React from 'react';
 
-const Beer = ({ beer, dispatch }) => {
+const Beer = ({ beer, edit }) => {
 
   const { uid, name, brewery } = beer.toJS();
 
   const remove = () => {
-    dispatch({
-      type: 'remove',
-      payload: uid,
-    })
+    // dispatch({
+    //   type: 'remove',
+    //   payload: uid,
+    // })
   }
 
-  const edit = ({ target }) => {
-    const key = target.dataset['key'];
-    const value = target.value;
-    dispatch({
-      type: 'BREWERY_LIST_EDIT',
-      payload: {
-        uid,
-        [key]: value
-      },
+  const onChange = ({ target: { value, dataset } }) => {
+    edit({
+      uid,
+      [dataset['key']]: value
     });
   }
 
@@ -29,7 +24,7 @@ const Beer = ({ beer, dispatch }) => {
         <label htmlFor={`name-${uid}`}>Name</label>
         <input
           data-key="name"
-          onChange={edit}
+          onChange={onChange}
           value={name}
           id={`name-${uid}`}
           name={uid}
@@ -39,7 +34,7 @@ const Beer = ({ beer, dispatch }) => {
         <label htmlFor={`bre-${uid}`}>Brewery</label>
         <input
           data-key="brewery"
-          onChange={edit}
+          onChange={onChange}
           value={brewery}
           id={`bre-${uid}`}
           name={uid}

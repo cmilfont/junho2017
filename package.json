@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "D": "^0.0.1",
     "firebase": "^4.1.1",
     "immutable": "^3.8.1",
     "prop-types": "^15.5.10",
