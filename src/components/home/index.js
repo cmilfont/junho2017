@@ -2,7 +2,7 @@ import React from 'react';
 import Toolbar from 'components/home/toolbar';
 import Login from 'components/home/login';
 import Brewery from 'components/brewery/list';
-import connect from 'milflux/connect';
+import { connect } from 'react-redux';
 
 class Home extends React.Component {
   render() {
@@ -19,8 +19,8 @@ class Home extends React.Component {
   }
 }
 
-export default connect(Home, state => {
+export default connect(state => {
   return {
     user: state.user,
   }
-});
+})(Home);

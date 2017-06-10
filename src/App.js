@@ -1,19 +1,47 @@
 import React, { Component } from 'react';
 import Home from 'components/home';
-import Store from 'milflux/store';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
 import uuid from 'uuid';
 import './App.css';
 
+import middleware from 'api/middlewares/middleware.js';
+
 window.uuid = uuid;
+
+function listReducer(list = [], action) {
+  if (action.type === 'changed') {
+    return action.payload;
+  }
+  return list;
+}
+
+function userReducer(user = {}, action) {
+  if (action.type === 'logged') {
+    return action.payload;
+  }
+  return user;
+}
 
 class App extends Component {
 
   render() {
+
+    const middlewares = [middleware];
+
+    const store = createStore(
+      combineReducers({
+        user: userReducer,
+        list: listReducer,
+      }),
+      applyMiddleware(...middlewares)
+    );
+
     return (
       <div className="App">
-        <Store>
+        <Provider store={store}>
           <Home />
-        </Store>
+        </Provider>
       </div>
     );
   }

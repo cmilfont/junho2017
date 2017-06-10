@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import connect from 'milflux/connect';
+import { connect } from 'react-redux';
 
 class Login extends Component {
 
@@ -16,8 +16,8 @@ class Login extends Component {
   }
 }
 
-export default connect(Login, state => {
+export default connect(state => {
   return {
     user: state.user,
   }
-});
+})(Login);

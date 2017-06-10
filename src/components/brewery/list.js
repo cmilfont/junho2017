@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import uuid from 'uuid';
-import connect from 'milflux/connect';
+import { connect } from 'react-redux';
 import Beer from 'components/brewery/beer';
 
 class List extends Component {
@@ -27,6 +27,7 @@ class List extends Component {
     const { list, dispatch } = this.props;
     const beers = list.map(beer => (
       <Beer
+        dispatch={dispatch}
         key={beer.uid}
         {...beer}
       />
@@ -41,8 +42,8 @@ class List extends Component {
   }
 }
 
-export default connect(List, state => {
+export default connect(state => {
   return {
     list: state.list,
   }
-});
+})(List);

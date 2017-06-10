@@ -1,5 +1,5 @@
 import React from 'react';
-import connect from 'milflux/connect';
+import { connect } from 'react-redux';
 
 const Toolbar = ({ count, user: { uid } }) => (
   <div className="">
@@ -9,7 +9,7 @@ const Toolbar = ({ count, user: { uid } }) => (
   </div>
 );
 
-export default connect(Toolbar, state => {
+export default connect(state => {
   return {
     count: state.list.reduce(
       (count, item) => {
@@ -22,4 +22,4 @@ export default connect(Toolbar, state => {
     ),
     user: state.user,
   }
-});
+})(Toolbar);
