@@ -1,5 +1,7 @@
 import uuid from 'uuid';
 import firebase from 'firebase';
+import { actions } from 'api/actions/auth';
+
 const config = {
   apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
   authDomain: "feedback-140018.firebaseapp.com",
@@ -20,7 +22,7 @@ const addFirebaseUser = (user, store) => {
      email,
    }).then(() => {
      store.dispatch({
-       type: 'logged',
+       type: actions.logged,
        payload: user,
      })
    });
@@ -57,7 +59,7 @@ function middleware(store) {
       }
 
 
-      if (action.type === 'login') {
+      if (action.type === actions.login) {
         const authProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth()
                 .signInWithPopup(authProvider)

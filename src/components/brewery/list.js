@@ -6,9 +6,7 @@ import Beer from 'components/brewery/beer';
 class List extends Component {
 
   add = () => {
-    this.props.dispatch({
-      type: 'BREWERY_LIST_ADD'
-    });
+    this.props.dispatch({ type: 'BREWERY_LIST_ADD' });
   }
 
   componentDidMount() {
