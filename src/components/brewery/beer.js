@@ -1,21 +1,18 @@
 import React from 'react';
 
-const Beer = ({ beer, edit }) => {
+const Beer = ({ beer, edit, remove }) => {
 
   const { uid, name, brewery } = beer.toJS();
-
-  const remove = () => {
-    // dispatch({
-    //   type: 'remove',
-    //   payload: uid,
-    // })
-  }
 
   const onChange = ({ target: { value, dataset } }) => {
     edit({
       uid,
       [dataset['key']]: value
     });
+  }
+
+  const onRemove = ({ target: { value } }) => {
+    remove(value);
   }
 
   return (
@@ -41,7 +38,7 @@ const Beer = ({ beer, edit }) => {
         />
       </div>
       <div>
-        <button onClick={remove}>Remove</button>
+        <button id={`btn-${uid}`} value={uid} onClick={onRemove}>Remove</button>
       </div>
     </div>
   );

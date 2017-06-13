@@ -48,11 +48,11 @@ class Store extends React.Component {
 
   componentWillMount() {
     const config = {
-      apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
-      authDomain: "feedback-140018.firebaseapp.com",
-      databaseURL: "https://feedback-140018.firebaseio.com",
-      projectId: "feedback-140018",
-      storageBucket: "feedback-140018.appspot.com",
+      apiKey: "AIzaSyDF8QusstyjG6K4xRFbabmsGs3se3WYA_o",
+      authDomain: "addressbook-4960c.firebaseapp.com",
+      databaseURL: "https://faddressbook-4960c.firebaseio.com",
+      projectId: "addressbook-4960c",
+      storageBucket: "addressbook-4960c.appspot.com",
       messagingSenderId: "71457068040"
     };
     firebase.initializeApp(config);
@@ -121,12 +121,14 @@ class Store extends React.Component {
       ...this.state,
       list: list.map(item => {
         if (item.uid === name) {
-          item.premium = (value === 'Baden');
           if (dataset['name'] === 'brewery') {
             item.brewery = value;
           }
           if (dataset['name'] === 'name') {
             item.name = value;
+          }
+          if (dataset['name'] === 'premium') {
+            item.premium = value;
           }
         }
         return item;

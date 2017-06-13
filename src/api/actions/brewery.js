@@ -1,26 +1,21 @@
 import { push } from 'react-router-redux';
-
-export const actions = {
-  add: 'BREWERY_LIST_ADD',
-  edit: 'BREWERY_LIST_EDIT',
-  request:'BREWERY_LIST_REQUEST',
-  requestSuccess: 'BREWERY_LIST_REQUEST_SUCCESS',
-}
+import ActionTypes from '../constants/action_types';
 
 export const mapStateToProps = ({ list }) => ({ list });
 
 export const mapDispatchToProps = (dispatch) => {
   return {
-    request: () => dispatch({ type: actions.request }),
+    request: () => dispatch({ type: ActionTypes.request }),
     requestSuccess: payload => dispatch({
-      type: actions.requestSuccess,
+      type: ActionTypes.requestSuccess,
       payload
     }),
-    add: () => dispatch({ type: actions.add }),
+    add: () => dispatch({ type: ActionTypes.add }),
     edit: payload => dispatch({
-      type: actions.edit,
+      type: ActionTypes.edit,
       payload
     }),
+    remove: payload => dispatch({ type: ActionTypes.remove, payload })
   };
 };
 

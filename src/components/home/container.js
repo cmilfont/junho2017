@@ -12,7 +12,8 @@ class Container extends React.Component {
   }
 
   render() {
-    return <Home />
+    const { onLogout } = this.props;
+    return <Home onLogout={onLogout}/>
   }
 }
 

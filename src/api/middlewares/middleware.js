@@ -1,13 +1,14 @@
 import uuid from 'uuid';
 import firebase from 'firebase';
-import { actions } from 'api/actions/auth';
+import ActionTypes from '../constants/action_types';
+import { push } from 'react-router-redux';
 
 const config = {
-  apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
-  authDomain: "feedback-140018.firebaseapp.com",
-  databaseURL: "https://feedback-140018.firebaseio.com",
-  projectId: "feedback-140018",
-  storageBucket: "feedback-140018.appspot.com",
+  apiKey: "AIzaSyDF8QusstyjG6K4xRFbabmsGs3se3WYA_o",
+  authDomain: "addressbook-4960c.firebaseapp.com",
+  databaseURL: "https://addressbook-4960c.firebaseio.com",
+  projectId: "addressbook-4960c",
+  storageBucket: "addressbook-4960c.appspot.com",
   messagingSenderId: "71457068040"
 };
 firebase.initializeApp(config);
@@ -22,7 +23,7 @@ const addFirebaseUser = (user, store) => {
      email,
    }).then(() => {
      store.dispatch({
-       type: actions.logged,
+       type: ActionTypes.logged,
        payload: user,
      })
    });
@@ -58,13 +59,27 @@ function middleware(store) {
         });
       }
 
+      if (action.type === ActionTypes.remove) {
+        const uid  = action.payload;
+        const ref = firebase.database().ref(`/breweries/${uid}`);
+        ref.remove();
+      }
 
-      if (action.type === actions.login) {
+      if (action.type === ActionTypes.login) {
         const authProvider = new firebase.auth.GoogleAuthProvider();
         firebase.auth()
                 .signInWithPopup(authProvider)
                 .then((payload) => {
                   addFirebaseUser(payload.user, store);
+                });
+      }
+
+      if (action.type === ActionTypes.logout) {
+        const authProvider = new firebase.auth.GoogleAuthProvider();
+        firebase.auth()
+                .signOut()
+                .then((payload) => {
+                  dispatch(push('/login'));
                 });
       }
       return dispatch(action);
