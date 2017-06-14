@@ -1,20 +1,19 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { mapStateToProps, mapDispatchToProps } from 'api/actions/brewery';
 
-const Beer = ({ beer, edit }) => {
+const Beer = ({ beer, edit, remove }) => {
 
   const { uid, name, brewery } = beer.toJS();
 
-  const remove = () => {
-    // dispatch({
-    //   type: 'remove',
-    //   payload: uid,
-    // })
+  const onRemove = () => {
+    remove({uid});
   }
 
   const onChange = ({ target: { value, dataset } }) => {
     edit({
       uid,
-      [dataset['key']]: value
+      [dataset['key']]: value,
     });
   }
 
@@ -41,11 +40,11 @@ const Beer = ({ beer, edit }) => {
         />
       </div>
       <div>
-        <button onClick={remove}>Remove</button>
+        <button onClick={onRemove}>Remove</button>
       </div>
     </div>
   );
 
 }
 
-export default Beer;
+export default connect(mapStateToProps, mapDispatchToProps)(Beer);

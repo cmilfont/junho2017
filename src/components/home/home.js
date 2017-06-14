@@ -4,9 +4,11 @@ import Brewery from 'components/brewery/list';
 
 class Home extends React.Component {
   render() {
+
+    const { onLogout } = this.props;
     return (
       <div>
-        <Toolbar />
+        <Toolbar onLogout={onLogout} />
         <Brewery />
       </div>
     );
