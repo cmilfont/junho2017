@@ -21,7 +21,7 @@ export const mapDispatchToProps = dispatch => {
         dispatch(push('/login'));
       }
     },
-    //EH ASSIM MESMO?? OU DEVEMOS PASSAR O LOGIN QUE NEM PASSAMOS O LOGOUT?
+    //perguntar sobre esse 'login'
     onLogin: () => dispatch({ type: 'login' }),
     onLogout: () => dispatch({ type: actions.logout }),
   };
