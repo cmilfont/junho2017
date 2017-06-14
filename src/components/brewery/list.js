@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import uuid from 'uuid';
+import Beer from 'components/brewery/beer';
 import { connect } from 'react-redux';
 import { mapStateToProps, mapDispatchToProps } from 'api/actions/brewery';
-import Beer from 'components/brewery/beer';
 
 class List extends Component {
 
@@ -15,12 +14,13 @@ class List extends Component {
   }
 
   render() {
-    const { list, edit } = this.props;
+    const { list, edit, remove } = this.props;
     const beers = list.map(beer => (
       <Beer
-        edit={edit}
         key={beer.get('uid')}
         beer={beer}
+        edit={edit}
+        remove={remove}
       />
     ));
 
@@ -33,6 +33,4 @@ class List extends Component {
   }
 }
 
-export default connect(
-  mapStateToProps, mapDispatchToProps
-)(List);
+export default connect(mapStateToProps, mapDispatchToProps)(List);
