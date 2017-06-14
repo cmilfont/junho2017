@@ -22,7 +22,7 @@ export const mapDispatchToProps = dispatch => {
       }
     },
     //perguntar sobre esse 'login'
-    onLogin: () => dispatch({ type: 'login' }),
+    onLogin: () => dispatch({ type: actions.login }),
     onLogout: () => dispatch({ type: actions.logout }),
   };
 };

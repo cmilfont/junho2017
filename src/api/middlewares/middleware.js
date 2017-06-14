@@ -5,16 +5,13 @@ import { actions as actionsBrewery } from 'api/actions/brewery';
 import { push } from 'react-router-redux';
 
 const config = {
-  apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
-  authDomain: "feedback-140018.firebaseapp.com",
-  databaseURL: "https://feedback-140018.firebaseio.com",
-  projectId: "feedback-140018",
-  storageBucket: "feedback-140018.appspot.com",
-  messagingSenderId: "71457068040"
+  apiKey: "AIzaSyBp4WfcFIutxqzrGbCxcro9YxRUhHgoWe4",
+  authDomain: "feedback-4a295.firebaseapp.com",
+  databaseURL: "https://feedback-4a295.firebaseio.com",
+  projectId: "feedback-4a295",
+  storageBucket: "feedback-4a295.appspot.com",
+  messagingSenderId: "952975869388"
 };
-firebase.initializeApp(config);
-window.firebase = firebase;
-
 firebase.initializeApp(config);
 window.firebase = firebase;
 
