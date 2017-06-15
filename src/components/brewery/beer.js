@@ -11,8 +11,8 @@ const Beer = ({ beer, edit, remove }) => {
     });
   }
 
-  const onRemove = ({ target: { value } }) => {
-    remove(value);
+  const onRemove = () => {
+    remove(uid);
   }
 
   return (
@@ -38,7 +38,7 @@ const Beer = ({ beer, edit, remove }) => {
         />
       </div>
       <div>
-        <button id={`btn-${uid}`} value={uid} onClick={onRemove}>Remove</button>
+        <button onClick={onRemove}>Remove</button>
       </div>
     </div>
   );
