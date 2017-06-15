@@ -15,10 +15,11 @@ class List extends Component {
   }
 
   render() {
-    const { list, edit } = this.props;
+    const { list, edit, remove } = this.props;
     const beers = list.map(beer => (
       <Beer
         edit={edit}
+        remove={remove}
         key={beer.get('uid')}
         beer={beer}
       />

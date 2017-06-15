@@ -1,9 +1,5 @@
 import { push } from 'react-router-redux';
-
-export const actions = {
-  login: 'BREWERY_AUTH_LOGIN',
-  logged: 'BREWERY_AUTH_LOGGED',
-}
+import ActionTypes from '../constants/action_types';
 
 export const mapStateToProps = ({ user }) => ({ user });
 
@@ -19,7 +15,8 @@ export const mapDispatchToProps = (dispatch) => {
         dispatch(push('/login'));
       }
     },
-    onLogin: () => dispatch({ type: 'login' })
+    onLogin: () => dispatch({ type: ActionTypes.login }),
+    onLogout: () => dispatch({ type: ActionTypes.logout })
   };
 };
 

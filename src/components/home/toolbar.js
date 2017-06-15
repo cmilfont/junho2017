@@ -1,26 +1,19 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-const Toolbar = ({ count, user: { uid } }) => (
+const Toolbar = ({ count, user: { uid }, onLogout }) => (
   <div className="">
-    {
-      uid ? `Count: ${count}`: ''
-    }
+    { uid ? `User: ${uid}`: '' }
+    <br/>
+    { count ? `Count: ${count}`: '' }
+    <br/>
+    <button onClick={onLogout}>Logout</button>
   </div>
 );
 
 export default connect(state => {
   return {
-    count: 0,
-    //  state.list.reduce(
-    //   (count, item) => {
-    //     if (item.premium) {
-    //       return count + 1;
-    //     }
-    //     return count;
-    //   },
-    //   0
-    // ),
-    user: state.user,
+    count: state.list.size,
+    user: state.user
   }
 })(Toolbar);

@@ -15,6 +15,8 @@ import Home from 'components/home/container';
 
 import middleware from 'api/middlewares/middleware.js';
 import reducers from 'api/reducers';
+
+import ActionTypes from 'api/constants/action_types';
 window.uuid = uuid;
 
 class App extends Component {
@@ -41,11 +43,16 @@ class App extends Component {
   }
 
   onAuthStateChanged = (payload) => {
-    const action = {
-      type: 'logged',
-      payload,
-    };
-    this.store.dispatch(action);
+    if(!payload) {
+      this.store.dispatch({ uid: '', type: '' });
+    } else {
+      const action = {
+        type: 'logged',
+        payload
+      };
+
+      this.store.dispatch(action);  
+    }
   }
 
   render() {
