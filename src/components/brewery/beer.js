@@ -16,6 +16,12 @@ const Beer = ({ beer, edit, remove, update }) => {
     );
   }
 
+  const onCheck = ({ target: { checked, dataset } }) => {
+    edit(
+      beer.set(dataset['key'], checked)
+    );
+  }
+
   return (
     <li className="mdc-list-item beer">
       <div>
@@ -25,7 +31,6 @@ const Beer = ({ beer, edit, remove, update }) => {
           onChange={onChange}
           value={beer.get('name')}
           id={`name-${beer.get('uid')}`}
-          name={beer.get('uid')}
         />
       </div>
       <div>
@@ -35,7 +40,16 @@ const Beer = ({ beer, edit, remove, update }) => {
           onChange={onChange}
           value={beer.get('brewery')}
           id={`bre-${beer.get('uid')}`}
-          name={beer.get('uid')}
+        />
+      </div>
+      <div>
+        <label htmlFor={`premium-${beer.get('uid')}`}>Premium</label>
+        <input
+          data-key="premium"
+          onChange={onCheck}
+          checked={beer.get('premium')}
+          id={`premium-${beer.get('uid')}`}
+          type='checkbox'
         />
       </div>
       <div>

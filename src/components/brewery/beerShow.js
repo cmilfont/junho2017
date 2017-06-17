@@ -2,33 +2,25 @@ import React from 'react';
 
 const Beer = ({ beer, edit, remove }) => {
 
-  const removeBeer = () => {
-    remove(beer.get('uid'));
-  }
+  const removeBeer = () => remove(beer.get('uid'));
 
   const onClick = () => edit(beer);
+
+  const premium = beer.get('premium') ?
+    <div className="premium">Especial</div>: null;
 
   return (
     <li className="mdc-list-item beer">
       <div>
-        <label htmlFor={`name-${beer.get('uid')}`}>Name</label>
-        <input
-          data-key="name"
-          readOnly
-          value={beer.get('name')}
-          id={`name-${beer.get('uid')}`}
-          name={beer.get('uid')}
-        />
+        <div>Beer: </div>
+        <div>{beer.get('name')}</div>
       </div>
       <div>
-        <label htmlFor={`bre-${beer.get('uid')}`}>Brewery</label>
-        <input
-          data-key="brewery"
-          readOnly
-          value={beer.get('brewery')}
-          id={`bre-${beer.get('uid')}`}
-          name={beer.get('uid')}
-        />
+        <div>Brewery: </div>
+        <div>{beer.get('brewery')}</div>
+      </div>
+      <div>
+        {premium}
       </div>
       <div>
         <button className="mdc-button" onClick={onClick}>Edit</button>

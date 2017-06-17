@@ -10,7 +10,7 @@ function listReducer(list = fromJS({}), action) {
 
 function userReducer(user = {}, action) {
   if (action.type === 'logged') {
-    return action.payload;
+    return action.payload || {};
   }
   return user;
 }

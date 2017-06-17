@@ -29,7 +29,7 @@ class List extends Component {
         key={beer.get('uid')}
         beer={beer}
       />
-    ));
+    )).toList().toJS();
   }
 
   render() {
