@@ -1,9 +1,13 @@
 import React from 'react';
 
-const Beer = ({ beer, edit, remove }) => {
+const Beer = ({ beer, edit, remove, update }) => {
 
   const removeBeer = () => {
     remove(beer.get('uid'));
+  }
+
+  const updateBeer = () => {
+    update(beer);
   }
 
   const onChange = ({ target: { value, dataset } }) => {
@@ -35,7 +39,7 @@ const Beer = ({ beer, edit, remove }) => {
         />
       </div>
       <div>
-        <button className="mdc-button">Save</button>
+        <button className="mdc-button" onClick={updateBeer}>Save</button>
         <button className="mdc-button" onClick={removeBeer}>Remove</button>
       </div>
     </li>

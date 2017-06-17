@@ -1,7 +1,8 @@
 import { fromJS } from 'immutable';
+import { actions } from 'api/actions/brewery';
 
 function listReducer(list = fromJS({}), action) {
-  if (action.type === 'BREWERY_LIST_REQUEST_SUCCESS') {
+  if (action.type === actions.requestSuccess) {
     return fromJS(action.payload);
   }
   return list;
@@ -14,7 +15,15 @@ function userReducer(user = {}, action) {
   return user;
 }
 
+function beerEdit(beer = fromJS({}), action) {
+  if (action.type === actions.edit) {
+    return action.payload;
+  }
+  return beer;
+}
+
 export default {
   user: userReducer,
   list: listReducer,
+  beerEdit: beerEdit,
 };
