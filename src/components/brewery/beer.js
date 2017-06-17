@@ -1,14 +1,11 @@
 import React from 'react';
 
-const Beer = ({ beer, edit }) => {
+const Beer = ({ beer, edit, remove }) => {
 
   const { uid, name, brewery } = beer.toJS();
 
-  const remove = () => {
-    // dispatch({
-    //   type: 'remove',
-    //   payload: uid,
-    // })
+  const removeBeer = () => {
+    remove(uid);
   }
 
   const onChange = ({ target: { value, dataset } }) => {
@@ -41,7 +38,7 @@ const Beer = ({ beer, edit }) => {
         />
       </div>
       <div>
-        <button onClick={remove}>Remove</button>
+        <button onClick={removeBeer}>Remove</button>
       </div>
     </div>
   );

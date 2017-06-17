@@ -1,17 +1,5 @@
 import uuid from 'uuid';
-import firebase from 'firebase';
 import { actions } from 'api/actions/auth';
-
-const config = {
-  apiKey: "AIzaSyDGYMxpnYaAJYyquEUM6Y__yQjhPP_skx0",
-  authDomain: "feedback-140018.firebaseapp.com",
-  databaseURL: "https://feedback-140018.firebaseio.com",
-  projectId: "feedback-140018",
-  storageBucket: "feedback-140018.appspot.com",
-  messagingSenderId: "71457068040"
-};
-firebase.initializeApp(config);
-window.firebase = firebase;
 
 const addFirebaseUser = (user, store) => {
    const { displayName, photoURL, email, uid } = user;
@@ -49,13 +37,13 @@ function middleware(store) {
       }
 
       if (action.type === 'BREWERY_LIST_REQUEST') {
-        const ref = firebase.database().ref(`/breweries`);
-        ref.on('value', data => {
-          store.dispatch({
-            type: 'BREWERY_LIST_REQUEST_SUCCESS',
-            payload: data.val(),
-          });
-        });
+        // const ref = firebase.database().ref(`/breweries`);
+        // ref.on('value', data => {
+        //   store.dispatch({
+        //     type: 'BREWERY_LIST_REQUEST_SUCCESS',
+        //     payload: data.val(),
+        //   });
+        // });
       }
 
 

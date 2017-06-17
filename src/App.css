@@ -22,3 +22,9 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+:root {
+  --mdc-theme-primary: #FFCA5A;
+  --mdc-theme-accent: #FF4081;
+  --mdc-theme-background: #F8F8F8;
+}

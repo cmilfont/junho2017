@@ -1,3 +1,5 @@
+import 'api/config/firebase';
+
 import React, { Component } from 'react';
 
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -6,6 +8,7 @@ import createHistory from 'history/createBrowserHistory';
 import { Route, withRouter } from 'react-router-dom';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { ConnectedRouter, routerReducer, routerMiddleware } from 'react-router-redux';
+import createSagaMiddleware from 'redux-saga';
 
 import uuid from 'uuid';
 import './App.css';
@@ -13,18 +16,19 @@ import './App.css';
 import Login from 'components/auth/container';
 import Home from 'components/home/container';
 
-import middleware from 'api/middlewares/middleware.js';
+import sagas from 'api/sagas';
 import reducers from 'api/reducers';
 window.uuid = uuid;
 
 class App extends Component {
 
   componentWillMount() {
+    const sagaMiddleware = createSagaMiddleware();
     const composeEnhancers = composeWithDevTools({});
     this.history = createHistory();
     const routerReduxMiddleware = routerMiddleware(this.history);
     const middlewares = [
-      middleware,
+      sagaMiddleware,
       routerReduxMiddleware,
     ];
     this.store = createStore(
@@ -34,6 +38,7 @@ class App extends Component {
       }),
       composeEnhancers(applyMiddleware(...middlewares))
     );
+    sagaMiddleware.run(sagas);
   }
 
   componentDidMount() {
