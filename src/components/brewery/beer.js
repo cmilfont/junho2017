@@ -1,50 +1,64 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from 'api/actions/brewery';
 
-const Beer = ({ beer, edit, remove }) => {
+const Beer = ({ beer, edit, remove, update }) => {
 
-  const { uid, name, brewery } = beer.toJS();
+  const removeBeer = () => {
+    remove(beer.get('uid'));
+  }
 
-  const onRemove = () => {
-    remove({uid});
+  const updateBeer = () => {
+    update(beer);
   }
 
   const onChange = ({ target: { value, dataset } }) => {
-    edit({
-      uid,
-      [dataset['key']]: value,
-    });
+    edit(
+      beer.set(dataset['key'], value)
+    );
+  }
+
+  const onCheck = ({ target: { checked, dataset } }) => {
+    edit(
+      beer.set(dataset['key'], checked)
+    );
   }
 
   return (
-    <div className="beer">
+    <li className="mdc-list-item beer">
       <div>
-        <label htmlFor={`name-${uid}`}>Name</label>
+        <label htmlFor={`name-${beer.get('uid')}`}>Name</label>
         <input
           data-key="name"
           onChange={onChange}
-          value={name}
-          id={`name-${uid}`}
-          name={uid}
+          value={beer.get('name')}
+          id={`name-${beer.get('uid')}`}
         />
       </div>
       <div>
-        <label htmlFor={`bre-${uid}`}>Brewery</label>
+        <label htmlFor={`bre-${beer.get('uid')}`}>Brewery</label>
         <input
           data-key="brewery"
           onChange={onChange}
-          value={brewery}
-          id={`bre-${uid}`}
-          name={uid}
+          value={beer.get('brewery')}
+          id={`bre-${beer.get('uid')}`}
         />
       </div>
       <div>
-        <button onClick={onRemove}>Remove</button>
+        <label htmlFor={`premium-${beer.get('uid')}`}>Premium</label>
+        <input
+          data-key="premium"
+          onChange={onCheck}
+          checked={beer.get('premium')}
+          id={`premium-${beer.get('uid')}`}
+          type='checkbox'
+        />
       </div>
-    </div>
+      <div>
+        <button className="mdc-button" onClick={updateBeer}>Save</button>
+        <button className="mdc-button" onClick={removeBeer}>Remove</button>
+      </div>
+    </li>
   );
 
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Beer);
+export default Beer;

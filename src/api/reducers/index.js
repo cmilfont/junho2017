@@ -1,23 +1,30 @@
 import { fromJS } from 'immutable';
+import { actions } from 'api/actions/brewery';
+import { actions as authActions } from 'api/actions/auth';
 
 function listReducer(list = fromJS({}), action){
-  if(action.type === 'BREWERY_LIST_REQUEST_SUCCESS'){
+  if(action.type === actions.requestSuccess){
     return fromJS(action.payload);
   }
   return list;
 }
 
 function userReducer(user = {}, action){
-  if(action.type === 'logged'){ //PERGUNTAR SOBRE ESSE 'logged' ??????
-    return action.payload;
-  }
-  if(action.type === 'BREWERY_AUTH_LOGOUT_SUCCESS'){
-    return action.payload;
+  if(action.type === authActions.logged){
+    return action.payload || {};
   }
   return user;
 }
 
+function beerEdit(beer = fromJS({}), action) {
+  if (action.type === actions.edit) {
+    return action.payload;
+  }
+  return beer;
+}
+
 export default{
-    user: userReducer,
-    list: listReducer,
+  user: userReducer,
+  list: listReducer,
+  beerEdit: beerEdit,
 }

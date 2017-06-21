@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Beer from 'components/brewery/beer';
-import { connect } from 'react-redux';
-import { mapStateToProps, mapDispatchToProps } from 'api/actions/brewery';
+import BeerShow from 'components/brewery/beerShow';
 
 class List extends Component {
 
@@ -13,24 +12,37 @@ class List extends Component {
     this.props.request();
   }
 
-  render() {
-    const { list, edit, remove } = this.props;
-    const beers = list.map(beer => (
+  mappingBeers = () => {
+    const { list, beerEdit, edit, remove, update } = this.props;
+    return list.map(beer => (
+      (beerEdit.get('uid') === beer.get('uid')) ?
       <Beer
-        key={beer.get('uid')}
-        beer={beer}
+        update={update}
         edit={edit}
         remove={remove}
+        key={`bre-edit-${beer.get('uid')}`}
+        beer={beerEdit}
+      /> :
+      <BeerShow
+        edit={edit}
+        remove={remove}
+        key={beer.get('uid')}
+        beer={beer}
       />
-    ));
+    )).toList().toJS();
+  }
 
+  render() {
+    const beers = this.mappingBeers();
     return (
-      <div>
-        <div className="list">{beers}</div>
+      <div className="Brewery">
+        <ul className="mdc-list">
+          {beers}
+        </ul>
         <button onClick={this.add}>Add</button>
       </div>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;

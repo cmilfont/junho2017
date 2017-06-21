@@ -1,14 +1,12 @@
 import React from 'react';
-import Toolbar from 'components/home/toolbar';
-import Brewery from 'components/brewery/list';
+import Toolbar from 'components/home/toolbar/index.js';
+import Brewery from 'components/brewery';
 
 class Home extends React.Component {
   render() {
-
-    const { onLogout } = this.props;
     return (
-      <div>
-        <Toolbar onLogout={onLogout} />
+      <div className="Home">
+        <Toolbar />
         <Brewery />
       </div>
     );
