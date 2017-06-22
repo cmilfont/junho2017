@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Beer from 'components/brewery/beer';
-import BeerShow from 'components/brewery/beerShow';
+import Brewery from 'components/brewery/brewery';
+import BreweryShow from 'components/brewery/breweryShow';
 
 class List extends Component {
 
@@ -12,32 +12,33 @@ class List extends Component {
     this.props.request();
   }
 
-  mappingBeers = () => {
-    const { list, beerEdit, edit, remove, update } = this.props;
-    return list.map(beer => (
-      (beerEdit.get('uid') === beer.get('uid')) ?
-      <Beer
+  mappingBreweries = () => {
+    const { list, breweryEdit, edit, remove, update, user } = this.props;
+    return list.map(brewery => (
+      (breweryEdit.get('uid') === brewery.get('uid')) ?
+      <Brewery
         update={update}
         edit={edit}
         remove={remove}
-        key={`bre-edit-${beer.get('uid')}`}
-        beer={beerEdit}
+        key={`bre-edit-${brewery.get('uid')}`}
+        brewery={breweryEdit}
       /> :
-      <BeerShow
+      <BreweryShow
         edit={edit}
         remove={remove}
-        key={beer.get('uid')}
-        beer={beer}
+        key={brewery.get('uid')}
+        brewery={brewery}
+        user={user}
       />
     )).toList().toJS();
   }
 
   render() {
-    const beers = this.mappingBeers();
+    const brewery = this.mappingBreweries();
     return (
       <div className="Brewery">
         <ul className="mdc-list">
-          {beers}
+          {brewery}
         </ul>
         <button onClick={this.add}>Add</button>
       </div>

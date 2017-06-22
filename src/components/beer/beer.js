@@ -1,18 +1,20 @@
 import React from 'react';
 
-const Beer = ({ beer, edit, remove, update }) => {
+const Beer = ({ beer, edit, remove, update, userId, breweryId }) => {
 
   const removeBeer = () => {
-    remove(beer.get('uid'));
+    remove(beer.get('uid'), userId, breweryId);
   }
 
   const updateBeer = () => {
-    update(beer);
+    update(beer, userId, breweryId);
   }
 
   const onChange = ({ target: { value, dataset } }) => {
     edit(
-      beer.set(dataset['key'], value)
+      beer.set(dataset['key'], value),
+      userId,
+      breweryId,
     );
   }
 
@@ -25,21 +27,12 @@ const Beer = ({ beer, edit, remove, update }) => {
   return (
     <li className="mdc-list-item beer">
       <div>
-        <label htmlFor={`name-${beer.get('uid')}`}>Name</label>
+        <label htmlFor={`beer-${beer.get('uid')}`}>Beer</label>
         <input
           data-key="name"
           onChange={onChange}
           value={beer.get('name')}
-          id={`name-${beer.get('uid')}`}
-        />
-      </div>
-      <div>
-        <label htmlFor={`bre-${beer.get('uid')}`}>Brewery</label>
-        <input
-          data-key="brewery"
-          onChange={onChange}
-          value={beer.get('brewery')}
-          id={`bre-${beer.get('uid')}`}
+          id={`beer-${beer.get('uid')}`}
         />
       </div>
       <div>

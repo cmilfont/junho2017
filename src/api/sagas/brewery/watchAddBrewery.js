@@ -5,7 +5,7 @@ import uuid from 'uuid';
 function* addSuccessfull() {
   const uid = uuid();
   const ref = yield window.firebase.database().ref(`/breweries/${uid}`);
-  yield ref.update({ uid, name: '', brewery: '', premium: false });
+  yield ref.update({ uid, name: '' });
   yield put({ type: actions.request });
 }
 

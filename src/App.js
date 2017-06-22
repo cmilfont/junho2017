@@ -12,8 +12,9 @@ import createSagaMiddleware from 'redux-saga';
 import uuid from 'uuid';
 import './App.css';
 
-import Login from 'components/auth/container';
-import Home from 'components/home/container';
+import Login from 'components/auth';
+import Home from 'components/home';
+import Beers from 'components/beer';
 
 import sagas from 'api/sagas';
 import reducers from 'api/reducers';
@@ -63,6 +64,7 @@ class App extends Component {
           <div className="App">
             <Route exact path="/" component={Home} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/brewery/:id/:uid" component={Beers} />
           </div>
         </ConnectedRouter>
       </Provider>

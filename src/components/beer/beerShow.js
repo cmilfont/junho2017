@@ -1,10 +1,12 @@
 import React from 'react';
 
-const Beer = ({ beer, edit, remove }) => {
+const Beer = ({ beer, edit, remove, userId, breweryId }) => {
 
-  const removeBeer = () => remove(beer.get('uid'));
+  const removeBeer = () => {
+    remove(beer.get('uid'), userId, breweryId);
+  }
 
-  const onClick = () => edit(beer);
+  const onClick = () => edit(beer, userId, breweryId);
 
   const premium = beer.get('premium') ?
     <div className="premium">Especial</div>: null;
@@ -13,11 +15,9 @@ const Beer = ({ beer, edit, remove }) => {
     <li className="mdc-list-item beer">
       <div>
         <div>Beer: </div>
-        <div>{beer.get('name')}</div>
-      </div>
-      <div>
-        <div>Brewery: </div>
-        <div>{beer.get('brewery')}</div>
+        <div>
+          {beer.get('name')}
+        </div>
       </div>
       <div>
         {premium}

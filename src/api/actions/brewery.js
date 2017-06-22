@@ -7,7 +7,7 @@ export const actions = {
   requestSuccess: 'BREWERY_LIST_REQUEST_SUCCESS',
 };
 
-export const mapStateToProps = ({ list, beerEdit }) => ({ list, beerEdit });
+export const mapStateToProps = ({ list, breweryEdit, user }) => ({ list, breweryEdit, user });
 
 export const mapDispatchToProps = dispatch => {
   return {
